@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>text</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+     
+
+	</style>
+<!-- 	<script type="text/javascript" src='jquery-3.1.1.js'></script> -->
+</head>
+<body> 
+  <h1 class="showTime"></h1>
+  <h2 class="countDown">倒计时</h2>
+
+
+
+  <script type="text/javascript">
+
+window.onload = function(){
+function checkTime(i){
+   if (i < 10){
+   	i = '0' + i;
+   } 
+   	return i;
+}
+
+
+//定义一些公共变量
+var countDown = document.querySelector('.countDown');
+var show = document.querySelector('.showTime');
+
+
+
+
+// 显示当前时间：
+function showCurTime(){
+  function showTime(){
+
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var day = date.getDate();
+	var d = date.getDay();
+	var weekDays = [{date: '星期日'}, {date: '星期一'}, {date: '星期二'}, {date: '星期三'}, {date: '星期四'}, {date: '星期五'}, {date: '星期六'}];
+	
+	var hour = date.getHours();
+	var minute = date.getMinutes();
+	var second = date.getSeconds();
+	minute = checkTime(minute);
+	second = checkTime(second);
+	// alert(weekDays[d].date);
+
+	show.innerHTML = year + '年' + month + '月' + day + '日' + hour + ':' + minute + ':' + second;
+	}
+ showTime();
+// setInterval(showTime, 500);
+}
+
+
+// 倒计时：
+function showCountDow(){
+     var currentTime = new Date();
+     var endTime = new Date('2017, 6, 6');
+     left = endTime.getTime() - currentTime.getTime();
+     day = Math.ceil(left / (24 * 60 * 60 * 1000));
+     countDown.innerHTML = '高考倒计时：' + day + '天';
+}
+
+//限时购：
+function timePurchase(){
+     var currentTime = new Date();
+     var endTime = new Date('2017, 6, 6');
+     left = parseInt((endTime.getTime() - currentTime.getTime())/1000);
+     day = parseInt(left/(24*60*60));
+     hour = parseInt((left/(60*60))%24);
+     minute = parseInt((left/60)%60);
+     second = left%60;
+}
+
+
+
+showCurTime();
+showCountDow();
+timePurchase();
+
+
+
+}
+
+ </script>
+</body>
+</html>
