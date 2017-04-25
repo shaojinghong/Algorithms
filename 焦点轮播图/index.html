@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>焦点轮播图</title>
+	<meta charset="utf-8">
+</head>
+<style type="text/css">
+   *{
+    margin: 0;
+    padding: 0;
+   }
+
+
+  /*包裹元素*/
+    .wrapper{
+    	width: 600px;
+    	height: 400px;
+    	margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    ul{
+    	list-style: none;
+    }
+
+
+  /*空心圆点*/
+  .dots{
+      position: absolute;
+      bottom: 15px;
+      left: 220px;
+  }
+	.dots li{
+	      border: 1px solid #fff;
+        display: inline-block;
+    		width: 10px;
+    		height: 10px;
+        border-radius: 6px;
+        margin: 10px;
+
+	}
+
+  /*图片展示区*/
+  .pic-show{
+    width: 3000px;
+    height: 400px;
+    position: absolute;
+    transition: left 0.3s linear;
+    
+  }
+	.pic-show li{
+		float: left;
+	}
+
+  .wrapper span{
+    font-size: 50px;
+    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    top: 175px;
+  }
+  .wrapper span:hover{
+    cursor: pointer;
+  }
+  .wrapper .previous{
+    left: 20px;
+  }
+  .wrapper .next{
+    right: 20px;
+  }
+</style>
+<body>
+   <div class="wrapper">
+   	 <ul class="pic-show">
+   	 	<li><img src="img/1.jpg"></li>
+   	 	<li><img src="img/2.jpg"></li>
+   	 	<li><img src="img/3.jpg"></li>
+   	 	<li><img src="img/4.jpg"></li>
+   	 	<li><img src="img/5.jpg"></li>
+   	 </ul>
+   	 <ul class="dots">
+   	 	<li></li>
+   	 	<li></li>
+   	 	<li></li>
+   	 	<li></li>
+   	 	<li></li>
+   	 </ul>
+     <span class="previous" onselectstart="return false;"> < </span>
+     <span class="next" onselectstart="return false;"> > </span>
+   </div>
+   
+<script type="text/javascript" src = 'index.js'></script>
+</body>
+</html>
