@@ -33,7 +33,6 @@ window.onload = function(){
      picShow.style.left = -(600 * index) + 'px';
      dotLis[index].style.background = 'rgba(255, 0, 0, 0.4)';
      
-
     }
     
 
