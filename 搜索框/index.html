@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>Bing Search</title>
+	<style type="text/css">
+	body{background-color: #333}
+	.bg-div{background-image: url(search_images/river.jpg);width: 1228px;height: 690px;margin: 0 auto}
+	.logo{background-image: url(search_images/logo.png);width: 107px;height: 53px;float: left;margin: -4px 18px 0 0;}
+	form{float: left;background-color: #fff;padding: 5px;}
+	.search-text{border: 0;float: left;height: 29px;line-height: 29px;outline: none;
+	 width: 350px;}
+	.search-button{border: 0;background-image: url(search_images/search-button.png);
+		width: 29px;height: 29px;float:left;}
+	.search-box{position: relative;top:200px;left: 300px}
+    .suggest{width: 388px;background-color:#fff;border: 1px solid #999; }
+    .suggest ul{list-style: none;margin: 0px;padding: 0;}
+    .suggest ul li{padding: 3px;font-size: 14px;line-height: 25px;cursor: pointer;}
+    .suggest ul li:hover{text-decoration: underline;background-color: #e5e5e5;}
+
+
+
+
+	</style>
+	<script type="text/javascript" src='jquery-3.1.1.js'></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#search_input").bind('keyup',function(){
+			$("#search-suggest").show().css({
+				top: $("#search-form").offset().top+$("#search-form").height()+10,
+				left: $("#search-form").offset().left,
+				position:'absolute',
+			});
+
+		});
+
+		});
+
+	</script>
+</head>
+<body>
+
+<div class="bg-div">
+<div class="search-box">
+    <div class="logo"></div>
+    <form id="search-form">
+    	<input type="text" name="" class="search-text" id="search_input">
+    	<input type="submit" name="" class='search-button' value="">
+    </form>
+</div>
+<div class="suggest" id="search-suggest" style="display: none;">
+	<ul >
+		<li>搜索结果1</li>
+		<li>搜索结果2</li>
+	</ul>
+</div>
+</div>
+
+</body>
+</html>
