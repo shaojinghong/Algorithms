@@ -1,0 +1,82 @@
+/*reset*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+.mask{
+	position: fixed;top: 0;bottom: 0;left: 0;right: 0;
+	background-color: rgba(0,0,0,.5);
+}
+/*js-lightbox*/
+.lightbox-popup{
+  position: relative;
+  width: 500px;
+  margin: 50px;
+
+}
+/*图片弹框区*/
+.lightbox-popup .lightbox-img-view{
+	position: relative;
+	border: 5px solid #fff;
+	border-radius: 5px;
+}
+.lightbox-popup .lightbox-img-view img{
+	display: block;
+}
+.lightbox-popup .lightbox-img-view .lightbox-img-btn{
+  width: 50px;height: 50px;
+  position: absolute;
+  z-index: 10000;
+}
+.lightbox-popup .lightbox-img-view .lightbox-img-prev-btn{
+  background: url(icon/prev.png) no-repeat center;
+  left: 0;top: 50%;margin-top: -25px;
+}
+.lightbox-popup .lightbox-img-view .lightbox-img-next-btn{
+  background: url(icon/next.png) no-repeat center;
+  right: 0;top: 50%;margin-top: -25px;
+
+}
+/*图片概要*/
+.lightbox-popup .lightbox-img-caption{
+   position: relative;
+   margin-top: 5px;
+}
+.lightbox-popup .lightbox-img-caption .light-img-caption-desc{
+	 font-weight: bold;
+	 color: #ddd;
+}
+.lightbox-popup .lightbox-img-caption .light-img-caption-index{
+	color: #ccc;
+	font-size: 12px;
+}
+.lightbox-popup .lightbox-img-caption .light-img-caption-close-btn{
+	width: 27px;height: 27px;
+	background: url(icon/close.png);
+	position: absolute;top:50%;right: 10px; margin-top: -13px;
+}
+
+/*照片组*/
+.img-group img{
+   width: 150px;
+}
+h1{color: red}
+h3{font-weight: bold;}
+
+
