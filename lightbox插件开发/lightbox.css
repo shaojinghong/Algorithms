@@ -19,22 +19,31 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
+/*js-lightbox*/
+.lightbox-popup{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+
+
+ 
+
+}
+/*mask区域*/
 .mask{
 	position: fixed;top: 0;bottom: 0;left: 0;right: 0;
 	background-color: rgba(0,0,0,.5);
-}
-/*js-lightbox*/
-.lightbox-popup{
-  position: relative;
-  width: 500px;
-  margin: 50px;
-
+	display: none;
 }
 /*图片弹框区*/
 .lightbox-popup .lightbox-img-view{
 	position: relative;
 	border: 5px solid #fff;
 	border-radius: 5px;
+	display: none;
+	background: #FFF url(icon/loading.gif) center no-repeat;
+
 }
 .lightbox-popup .lightbox-img-view img{
 	display: block;
@@ -57,6 +66,7 @@ time, mark, audio, video {
 .lightbox-popup .lightbox-img-caption{
    position: relative;
    margin-top: 5px;
+   display: none;
 }
 .lightbox-popup .lightbox-img-caption .light-img-caption-desc{
 	 font-weight: bold;
