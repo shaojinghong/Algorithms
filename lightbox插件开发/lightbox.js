@@ -1,21 +1,25 @@
 ;(function($){
    function LightBox(){
      self = this;
+     //创建弹出框最大的父节点
      this.popWin = $('<div class="lightbox-popup"></div>');
      var $body = $(document.body);
+     //渲染弹出框的结构，为什么要在js代码中生成html结构代码呢，因为这个不是属于页面本身的元素，
+     //而是当使用lightbox插件时候，生成的代码，这样使用插件的时候，不需要把这段代码又写在每个页面当中
      this.renderPopWin();
+     //获取弹出框各个元素
      this.mask = this.popWin.find('.mask');
-     this.imgViewArea = this.popWin.find('.lightbox-img-view');
+     this.imgViewArea  = this.popWin.find('.lightbox-img-view');
        this.imgPrevBtn = this.imgViewArea.find('.lightbox-img-prev-btn');
        this.imgNextBtn = this.imgViewArea.find('.lightbox-img-next-btn');
-       this.img = this.imgViewArea.find('img');
-     this.captionArea = this.popWin.find('.lightbox-img-caption');
-       this.captionDesc = this.captionArea.find('.light-img-caption-desc');
+       this.img        = this.imgViewArea.find('img');
+     this.captionArea    = this.popWin.find('.lightbox-img-caption');
+       this.captionDesc  = this.captionArea.find('.light-img-caption-desc');
        this.captionIndex = this.captionArea.find('.light-img-caption-index');
-       this.closeBtn = this.captionArea.find('.light-img-caption-close-btn');
+       this.closeBtn     = this.captionArea.find('.light-img-caption-close-btn');
      this.index = 0;
      this.popWin.appendTo($body);
-     //事件委托
+     //事件委托，給每个带有.js-ligtBox类名的照片绑定事件
      $body.on('click','.js-lightBox' ,function() {
          self.curGroupName = $(this).attr('data-group'),
          self.sameGroupEles = $(this).parent().find('[data-group='+self.curGroupName+']');
@@ -28,9 +32,18 @@
          self.showCaption(imgDesc);
      });
      //給上下翻页按钮绑定事件
-     this.imgNextBtn.click(this.showNextImg);
-     this.imgPrevBtn.click(this.showPrevImg);
+     this.imgNextBtn.hover(function() {
+        $(this).animate({'opacity':'1'});
+     }, function() {
+        $(this).animate({'opacity':'0'});
+     }).click(this.showNextImg);;
+     this.imgPrevBtn.hover(function() {
+        $(this).animate({'opacity':'1'});
+     }, function() {
+        $(this).animate({'opacity':'0'});
+     }).click(this.showPrevImg);;
    }
+
    LightBox.prototype = {
     renderPopWin : function(){
        var viewHtml = $('<div class="mask"></div>'+
@@ -61,6 +74,7 @@
          });
          return index;
     },
+    //显示弹出框和mask
     showMaskAndPopupWin : function(imgSrc){
         self = this;
         var winWidth = $(window).width(),
@@ -68,17 +82,17 @@
             width = (winWidth/2),
             height = (winHeight/2);
         this.imgViewArea.css({
-          width: width - 10,
-          height: height - 10,
+            width: width - 10,
+            height: height - 10,
         }).fadeIn();
         this.popWin.css({
-          marginLeft: -width/2,
-          marginTop: -(winHeight/2 + height)
+            marginLeft: -width/2,
+            marginTop: -(winHeight/2 + height)
         }).animate({
-          marginTop: -height/2
+            marginTop: -height/2
         },700,function(){
-          //回调函数：加载图片
-          self.loadImgSize(imgSrc);
+            //回调函数：加载图片
+            self.loadImgSize(imgSrc);
         }).show();
         this.mask.fadeIn();
         //控制上下翻页按钮
@@ -89,40 +103,40 @@
           } else if (this.index == this.gruopLength - 1){
             this.imgPrevBtn.show();
             this.imgNextBtn.hide();
-          }
-        } else {
-          this.imgPrevBtn.hide();
-          this.imgNextBtn.hide();
+          } else {
+            this.imgPrevBtn.show();
+            this.imgNextBtn.show();
+         } 
         }
         //給mask和closeBtn绑定关闭按钮：
         this.mask.click(function() {
-          self.popWin.fadeOut('slow');
-          self.img.attr('src','');
-          self.captionDesc.text('');
+            self.popWin.fadeOut('slow');
+            self.img.attr('src','');
+            self.captionDesc.text('');
         });
         this.closeBtn.click(function(){
-          self.popWin.fadeOut('slow');
-          self.img.attr('src','');
-          self.captionDesc.text('');
+            self.popWin.fadeOut('slow');
+            self.img.attr('src','');
+            self.captionDesc.text('');
         });
     },
     showNextImg : function(){
-      self.captionDesc.text('');
-      self.img.attr('src','');
-      self.index ++;
-      var imgSrc = self.sameGroupEles.eq(self.index).attr('data-src'),
-          imgDesc = self.sameGroupEles.eq(self.index).attr('data-desc');
-      self.showMaskAndPopupWin(imgSrc);
-      self.showCaption(imgDesc);
+        self.captionDesc.text('');
+        self.img.attr('src','');
+        self.index ++;
+        var imgSrc = self.sameGroupEles.eq(self.index).attr('data-src'),
+            imgDesc = self.sameGroupEles.eq(self.index).attr('data-desc');
+        self.showMaskAndPopupWin(imgSrc);
+        self.showCaption(imgDesc);
     },
     showPrevImg : function(){
-      self.captionDesc.text('');
-      self.img.attr('src','');
-      self.index --;
-      var imgSrc = self.sameGroupEles.eq(self.index).attr('data-src'),
-          imgDesc = self.sameGroupEles.eq(self.index).attr('data-desc');
-      self.showMaskAndPopupWin(imgSrc);
-      self.showCaption(imgDesc);
+        self.captionDesc.text('');
+        self.img.attr('src','');
+        self.index --;
+        var imgSrc = self.sameGroupEles.eq(self.index).attr('data-src'),
+            imgDesc = self.sameGroupEles.eq(self.index).attr('data-desc');
+        self.showMaskAndPopupWin(imgSrc);
+        self.showCaption(imgDesc);
     },
     loadImgSize : function(imgSrc){
         self.preLoadImg(imgSrc, function(){
@@ -134,20 +148,19 @@
             scale = Math.min(winWidth/width, winHeight/height);
         width = width * scale;
         height = height * scale;
-       self.imgViewArea.css({
-          width: width,
-          height: height
+        self.imgViewArea.css({
+            width: width,
+            height: height
         });
         self.popWin.css({
             marginLeft: -width/2,
             marginTop: -height/2
         });
-        // self.imgViewArea.append(self.img);
       });
     },
     preLoadImg : function(src,callback){
-      var img = new Image();
-      if (!!window.ActiveXObject){
+        var img = new Image();
+        if (!!window.ActiveXObject){
              //IE浏览器：
              img.onreadystatechange = function(){
               if (this.readyState == 'complete'){

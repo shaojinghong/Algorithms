@@ -49,18 +49,18 @@ time, mark, audio, video {
 	display: block;
 }
 .lightbox-popup .lightbox-img-view .lightbox-img-btn{
-  width: 50px;height: 50px;
+  width: 40%;height: 100%;
   position: absolute;
   z-index: 10000;
+  opacity: 0; filter: alpha(opacity=0);
 }
 .lightbox-popup .lightbox-img-view .lightbox-img-prev-btn{
-  background: url(icon/prev.png) no-repeat center;
-  left: 0;top: 50%;margin-top: -25px;
+  background: url(icon/prev.png) no-repeat center left;
+  left: 0;
 }
 .lightbox-popup .lightbox-img-view .lightbox-img-next-btn{
-  background: url(icon/next.png) no-repeat center;
-  right: 0;top: 50%;margin-top: -25px;
-
+  background: url(icon/next.png) no-repeat center right;
+  right: 0;top: 0;
 }
 /*图片概要*/
 .lightbox-popup .lightbox-img-caption{
