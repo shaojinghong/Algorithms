@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>二叉树－1</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#layer-wrapper{
+			display: flex;
+			width: 1000px;
+			height: 270px;
+			border: 1px solid #000;
+		}
+		.layer-1{
+			display: flex;
+			flex: 1;
+			height: 200px;
+			margin: 40px;
+			border: 1px solid #000;
+
+		}
+		.layer-2{
+			display: flex;
+			flex: 1;
+			height: 150px;
+			margin: 20px;
+			border: 1px solid #000;
+		}
+		.layer-3{
+			flex: 1;
+			height: 100px;
+			margin: 10px;
+			border: 1px solid #000;
+			text-align: center;
+			padding-top: 20px;
+		}
+		.control-container{
+			margin: 30px;
+		}
+		.control-container button{
+			width: 100px;
+			height: 40px;
+			font-size: 20px;
+			border: 1px solid pink;
+			border-radius: 5px;
+			box-shadow: 1px 1px 1px pink;
+			background-color: #fff;
+			outline: none;
+		}
+		.control-container a{
+			font-size: 15px;
+			margin: 10px;
+		}
+		.control-container input{
+			border: 1px solid pink;
+			border-radius: 5px;
+			width: 200px;
+			height: 40px;
+			outline: none;
+		    font-size: 17px;
+		}
+	</style>
+</head>
+<body>
+   <h1>多叉树的搜索</h1>
+   <h3>功能描述：</h3>
+   <p>
+     点击某个节点元素，则该节点元素呈现一个特殊被选中的样式<br>
+增加一个删除按钮，当选中某个节点元素后，点击删除按钮，则将该节点及其所有子节点删除掉<br>
+增加一个输入框及一个“添加”按钮当选中某个节点元素后，点击增加按钮，则在该节点下增加一个子节点，<br>
+节点内容为输入框中内容，插入在其子节点的最后一个位置<br>
+   </p> 
+  <div id="layer-wrapper">
+    <div class="layer-1">
+      <div class="layer-2">
+        <div class="layer-3">刘备</div>
+        <div class="layer-3">关羽</div>
+        <div class="layer-3">张飞</div>
+      </div>
+      <div class="layer-2">
+      	 <div class="layer-3">赵云</div>
+         <div class="layer-3">马超</div>
+      </div>
+    </div>
+    <div class="layer-1">
+      <div class="layer-2">
+        <div class="layer-3">曹操</div>
+        <div class="layer-3">项羽</div>
+        <div class="layer-3">貂蝉</div>
+      </div>
+      <div class="layer-2">
+      	 <div class="layer-3">吕布</div>
+         <div class="layer-3">黄忠</div>
+         <div class="layer-3">诸葛亮</div>
+      </div>
+    </div>
+  </div>
+  <div class="control-container">
+    <input type="text" placeholder="请输入要搜索的三国英雄" id="search-input">
+    <button id="pre-order">先序搜索</button>
+    <button id="post-order">后序搜索</button>
+    <br>
+    <br>
+    <button id="delete">删除</button><br><br>
+    <input type="text" placeholder="请输入要添加的英雄名" id="add-input">
+    <button id="add">添加</button><br>
+
+  </div>
+  <div class="ad">
+  	<a target="blank" href="https://github.com/shaojinghong/js-DataStructure/blob/master/bananceTree/bananceTree-1.html">源码查看</a>
+    <a target="blank" href="http://blog.csdn.net/github_38861674/article/details/77434464">关于js实现二叉树的博客文章</a>
+  </div>
+
+  
+<script type="text/javascript">
+    //定义一个空数组用来存放遍历出来的节点
+    var showBgList = [];
+    //获取根节点
+	var rootEle = document.getElementById('layer-wrapper');
+	//全局变量：定时器
+	var timer;
+    //全局变量，上次搜索的dom元素，为粉色
+	var currentPink;
+    //先序遍历节点
+    var selected;
+    function preOrder(node){
+      if (node){
+      	showBgList.push(node);
+      	 var childNodes = node.children;
+      	 for(var i = 0; i < childNodes.length; i++){
+      	 	preOrder(childNodes[i]);
+      	 } 
+      }
+    }
+    //后序遍历节点
+     function postOrder(node){
+      if (node){
+      	 var childNodes = node.children;
+      	 for(var i = 0; i < childNodes.length; i++){
+      	 	postOrder(childNodes[i]);
+      	 } 
+      	 showBgList.push(node);
+      }
+    }
+    //渲染背景的函数
+    function render(name){
+    	//清除上次搜索结果的粉色背景
+    	if (currentPink){
+    		currentPink.style.backgroundColor = '';
+    	}
+	    var listLength = showBgList.length;
+	    var i = 0;
+	    //判断是否正在执行上一次动画
+	    if (!timer){
+	      timer = setInterval(setBg, 200);
+	    } else {
+	    	alert('正在进行动画，请动画进行完成后再按');
+	    }
+
+	    function setBg(){
+	    	if (i < listLength){
+	    	  if (i > 0){
+	    	  	showBgList[i - 1].style.backgroundColor = '';
+	    	  }
+	          showBgList[i].style.backgroundColor = 'pink';
+	          if (showBgList[i].firstChild.nodeValue == name){
+	            alert(name + '被找到');
+	            currentPink = showBgList[i];
+	            showBgList = [];//重置节点数组
+	    		clearInterval(timer);
+	    		timer = null;
+	          }
+	          i ++;
+	    	} else if (i = listLength) {
+	    		showBgList[i - 1].style.backgroundColor = '';
+	    		showBgList = [];//重置节点数组
+	    		clearInterval(timer);
+	    		timer = null;
+	    		alert('没有找到你想要的三国英雄');
+	    	}
+        }
+    }
+ 
+    //先序遍历按钮的事件
+    function eventPreOrder(){
+    	//获取输入的名字
+    	var name = document.getElementById('search-input').value;
+    	if (name){
+		    //先序遍历节点，初始化showBglist
+			preOrder(rootEle);
+		    render(name);
+	    } else {
+	    	alert('请输入名字');
+	    }
+    }
+    //后序遍历按钮的事件
+    function eventPostOrder(){
+    	//获取输入的名字
+    	var name = document.getElementById('search-input').value;
+    	if (name) {
+	    	//后序遍历节点，初始化showBglist
+	    	postOrder(rootEle);
+	    	render(name);
+    	} else {
+    		alert('请输入名字');
+    	}
+    }
+    
+    //删除dom节点
+    function deleteDom(){
+    	if (selected){
+    	  selected.parentNode.removeChild(selected);
+    	} else {
+    		alert('请先选中要删除的节点');
+    	}
+    }
+    //添加dom节点
+    function addDom() {
+       if (selected){
+       	 var text = document.getElementById('add-input').value;
+       	 if (text) {
+       	   var newNode = document.createElement('div');
+       	   newNode.className = selected.children[0].className;
+           var textNode = document.createTextNode(text);
+           newNode.appendChild(textNode);
+           selected.appendChild(newNode);
+       	 }
+       }
+    }
+
+    //绑定事件：
+    document.getElementById('pre-order').onclick = eventPreOrder;
+    document.getElementById('post-order').onclick = eventPostOrder;
+    document.getElementById('delete').onclick = deleteDom;
+    document.getElementById('add').onclick = addDom;
+    rootEle.onclick = function(event){
+       if (selected){
+       	selected.style.backgroundColor = '';
+       }	 
+       event.target.style.backgroundColor = '#ffc107';
+       selected = event.target;
+    }  
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

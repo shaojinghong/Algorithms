@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>堆栈的javascript实现</title>
+	<style type="text/css">
+	    .code{
+	    	position: absolute;
+	    	width: 40%;
+	    	top: 400px;
+	    	left: 50px;
+	    	background: rgba(255,192,203,.2);
+	    	border-radius: 10px;
+            box-shadow: 1px 1px 1px pink;
+	    }
+	    .demo{
+	       position: absolute;
+	       right: 200px;	
+           width: 30%;
+           background: rgba(255,192,203,.2);
+           border-radius: 10px;
+           box-shadow: 1px 1px 1px pink;
+	    }
+		.demo #stack-wrapper{
+			width: 200px;
+			margin: 0 auto;
+		}
+		.demo #stack-wrapper .stack-item{
+			width: 100px;
+			height: 50px;
+			line-height: 50px;
+			background: pink;
+			margin-top: 10px;
+			color: #fff;
+			font-size: 30px;
+			text-align: center;
+		}
+		.demo .control-wrapper input{
+			width: 200px;
+        	height: 30px;
+        	background: #fff;
+        	border-radius: 5px;
+        	outline: none;
+        	border: 1px solid pink;
+        	box-shadow: 1px 1px 1px pink;
+		}
+		.demo .control-wrapper button{
+			width: 100px;
+        	height: 30px;
+        	background: #fff;
+        	border-radius: 5px;
+        	outline: none;
+        	border: 1px solid pink;
+        	box-shadow: 1px 1px 1px pink;
+		}
+        .demo .control-wrapper #btn-pop{
+        	margin-left: 210px;
+        }
+        .demo-2{
+           position: absolute;
+           left: 50px;
+           top: 80px;
+           width: 40%;
+           height: 300px;
+           background: rgba(255,192,203,.2);
+           margin-bottom: 30px;
+           border-radius: 10px;
+           box-shadow: 1px 1px 1px pink;
+        }
+        .demo-2 input{
+			width: 200px;
+        	height: 30px;
+        	background: #fff;
+        	border-radius: 5px;
+        	outline: none;
+        	border: 1px solid pink;
+        	box-shadow: 1px 1px 1px pink;
+        	margin-left: 10px;
+		}
+		.demo-2 button{
+			width: 100px;
+        	height: 30px;
+        	background: #fff;
+        	border-radius: 5px;
+        	outline: none;
+        	border: 1px solid pink;
+        	box-shadow: 1px 1px 1px pink;
+		}
+		.demo-2 span{
+			display: inline-block;
+			width: 200px;
+			height: 40px;
+			line-height: 40px;
+			background: #fff;
+			border: 1px solid #fff;
+        	box-shadow: 1px 1px 1px #FFF;
+        	text-align: center;
+        	color: #999;
+        	margin-left: 160px;
+		}
+
+	</style>
+	<script type="text/javascript" scr='Stack.js'></script>
+	<script type="text/javascript">
+		window.onload = function(){
+		function Stack(){
+	  		//存放数据
+	  		this.dataStore = [];
+	  		// 纪录栈顶的位置
+	  		this.top = 0;
+        }
+	  	Stack.prototype = {
+	  		// 出栈
+	  		push: function(value){
+	  		     this.dataStore[this.top ++] = value;
+	  		},
+	  		// 入栈
+	  		pop: function(){
+	  		  if (this.top > 0){
+	  		  	return this.dataStore[-- this.top];
+	  		  } else {
+	  		  	alert("亲：已经到栈顶了,不能弹出栈了");
+	  		  }
+	  		},
+	  		// 数组长度
+	  		length: function(){
+	  		     return this.top;
+	  		},
+	  		// 展示当前位置的值
+	  		show: function(index){
+	  			if (index <= this.top && index > 0){
+	  		         return this.dataStore[index - 1];
+	  		       } else {
+	  		       	alert("警告：请求输出的值超出栈顶或者小于0");
+	  		       }
+	  		}
+	  	}
+			//初始化一个空栈
+			var stack = new Stack();
+			stack.push(2);
+			stack.push(23);
+			stack.push(342);
+			stack.push(87);
+			stack.push(89);
+			// console.log(stack.show(3)); //显示第三位 342
+			// console.log(stack.pop()); // 22
+			// console.log(stack.pop()); // 89
+			// console.log(stack.pop());// 87
+			// console.log(stack.length()); // 3
+			var stackWrpper = document.getElementById('stack-wrapper');
+			var boxs = [];
+			render(stack);
+			function render(stack){
+				for (var i = stack.length() - 1; i >= 0; i --){
+				    boxs[i] = document.createElement('div');
+				    boxs[i].innerHTML = stack.show(i + 1);
+					boxs[i].className = 'stack-item';
+					stackWrpper.appendChild(boxs[i]);
+				}
+		    }
+		    var btnPush = document.getElementById('btn-push'),
+		        btnPop = document.getElementById('btn-pop'),
+		        inputPush = document.getElementById('input-push'),
+		        demo2Number = document.getElementById('demo2-number'),
+		        demo2Base = document.getElementById('demo2-base'),
+		        btnConvert = document.getElementById('btn-convert'),
+		        displayResult = document.getElementById('display-result');
+
+
+
+		    btnPush.onclick = function(){
+		    	if (inputPush.value){
+                  stack.push(inputPush.value);
+                } else {
+                	alert("未输入值");
+                }
+                stackWrpper.innerHTML = '';
+                render(stack);
+		    }
+		    btnPop.onclick = function(){
+		    	stack.pop();
+		    	stackWrpper.innerHTML = '';
+		    	render(stack);
+		    }
+		    btnConvert.onclick = function(){
+		    	var number = parseInt(demo2Number.value),
+		    	    base = parseInt(demo2Base.value);
+		    	    console.log(typeof demo2Number.value);
+                if (! isNaN(number) && ! isNaN(base)){
+                     var result = convert(number, base);
+                     displayResult.innerHTML = result;
+                } else {
+                	alert("请输入正确的值");
+                }
+
+		    }
+		    
+            // 数值的进制转换
+		    function convert(number, base){
+		    	var stack2 = new Stack();
+		    	while (number > 0){
+			    	stack2.push(number % base);
+			        number  = Math.floor(number / base);
+		        }
+		        var length = stack2.top;
+		        var str = '';
+		        for (var i = 0; i < length; i++){
+		        	str += stack2.pop();
+		        }
+		        return str
+		    }
+	    }
+	</script>
+</head>
+<body>
+  <h1>js实现堆栈</h2>
+    <div class="code">
+    	<h2>数据结构：</h2>
+    	<pre>
+  function Stack(){
+  		//存放数据
+  		this.dataStore = [];
+  		// 纪录栈顶的位置
+  		this.top = 0;
+      }
+  	Stack.prototype = {
+  		// 出栈
+  		push: function(value){
+  		     this.dataStore[this.top ++] = value;
+  		},
+  		// 入栈
+  		pop: function(){
+  		  if (this.top > 0){
+  		  	return this.dataStore[-- this.top];
+  		  } else {
+  		  	alert("亲：已经到栈顶了,不能弹出栈了");
+  		  }
+  		},
+  		// 数组长度
+  		length: function(){
+  		     return this.top;
+  		},
+  		// 展示当前位置的值
+  		show: function(index){
+  			if (index <= this.top && index > 0){
+  		         return this.dataStore[index - 1];
+  		       } else {
+  		       	alert("警告：请求输出的值超出栈顶或者小于0");
+  		       }
+  		}
+  	}
+  	</pre>
+    </div>
+    <div class="demo">
+      &nbsp&nbsp&nbsp
+      <h2>demo1：</h3> 
+	  <div id="stack-wrapper">
+	  </div>
+	  <div class="control-wrapper">
+	    &nbsp&nbsp&nbsp
+	    <h3>输入一个值：</h3>
+	  	<input type="text" id="input-push">
+	  	<button id="btn-push">入栈</button><br>
+	  	<button id="btn-pop">从栈顶出栈</button>
+	  </div>
+	</div>
+	<div class="demo-2">
+	  <h2>demo2:利用堆栈将数字转换成二进制和不进制</h2>
+	  <br>
+	  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	  输入数字：
+	  <input type="text" id="demo2-number"><br><br>
+	  输入转换进制基数：
+	  <input type="text" id="demo2-base">
+	  <button id="btn-convert">转换</button><br>
+	  <br>
+	  <span id="display-result">转换结果</span>
+	</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>图的实现js</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src='graph.js'></script>
+	<script type="text/javascript">
+		window.onload = function(){
+		  var graph = new Graph(10);
+		  graph.addEdge(0, 1);
+		  graph.addEdge(0, 2);
+		  graph.addEdge(0, 5);
+		  graph.addEdge(0, 6);
+		  graph.addEdge(1, 3);
+		  graph.addEdge(1, 8);
+		  graph.addEdge(1, 9);
+		  graph.addEdge(2, 4);
+		  graph.addEdge(5, 7);
+		  // graph.showGraph();
+		  graph.dfs(0);
+		  // graph.bfs(0);
+		  // graph.allDistance(0);
+		  // console.log(graph.minDistance(3,7));
+		  // console.log(graph.minDistance(1,2));
+		  var topsort = graph.topSort();
+		  console.log(topsort);
+		}
+	</script>
+</head>
+<body>
+
+</body>
+</html>

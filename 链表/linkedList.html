@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>链表结构</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src='linkedList.js'></script>
+	<script type="text/javascript">
+		var list = new LinkedList();
+		list.insert("header", "a");
+		list.insert("a", "b");
+		list.insert("b", "c");
+		list.insert("c", "d");
+		list.insert("d", "e");
+		list.insert("b", "插入的值");
+		list.remove('c');
+		list.empty();
+		console.log(list);
+		// allElements = list.showAllEle();
+		// console.log(allElements);
+		// list.empty(); 
+		// list.empty(); 
+		// allElements = list.showAllEle();
+		// console.log(allElements);
+	</script>
+</head>
+<body>
+
+</body>
+</html>

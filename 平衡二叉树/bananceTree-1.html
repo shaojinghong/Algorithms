@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>二叉树－1</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#layer-wrapper{
+			display: flex;
+			width: 800px;
+			height: 300px;
+			border: 1px solid #000;
+		}
+		.layer-1{
+			display: flex;
+			flex: 1;
+			height: 200px;
+			margin: 40px;
+			border: 1px solid #000;
+
+		}
+		.layer-2{
+			display: flex;
+			flex: 1;
+			height: 150px;
+			margin: 20px;
+			border: 1px solid #000;
+		}
+		.layer-3{
+			flex: 1;
+			height: 100px;
+			margin: 10px;
+			border: 1px solid #000;
+		}
+		.control-container{
+			margin: 30px;
+		}
+		.control-container button{
+			width: 100px;
+			height: 30px;
+			font-size: 20px;
+		}
+		.control-container a{
+			font-size: 15px;
+			margin: 10px;
+		}
+	</style>
+</head>
+<body>
+   <h1>二叉树的可视化展示</h1>
+   <h3>功能描述：</h3>
+   <p>提供一个按钮，显示开始遍历，点击后，以动画的形式呈现遍历的过程<br>
+二叉树的遍历算法和方式自定，前序中序后序皆可，但推荐可以提供多种算法的展示（增加多个按钮，每个按钮对应不同的算法）<br>
+当前被遍历到的节点做一个特殊显示（比如不同的颜色）<br>
+每隔一段时间（500ms，1s等时间自定）再遍历下一个节点</p>
+  <div id="layer-wrapper">
+    <div class="layer-1">
+      <div class="layer-2">
+        <div class="layer-3"></div>
+        <div class="layer-3"></div>
+      </div>
+      <div class="layer-2">
+      	 <div class="layer-3"></div>
+         <div class="layer-3"></div>
+      </div>
+    </div>
+    <div class="layer-1">
+      <div class="layer-2">
+        <div class="layer-3"></div>
+        <div class="layer-3"></div>
+      </div>
+      <div class="layer-2">
+      	 <div class="layer-3"></div>
+         <div class="layer-3"></div>
+      </div>
+    </div>
+  </div>
+  <div class="control-container">
+    <button id="in-order">中序遍历</button>
+    <button id="pre-order">先序遍历</button>
+    <button id="post-order">后序遍历</button>
+    <a target="blank" href="https://github.com/shaojinghong/js-DataStructure/blob/master/bananceTree/bananceTree-1.html">源码查看</a>
+    <a target="blank" href="http://blog.csdn.net/github_38861674/article/details/77434464">关于js实现二叉树的博客文章</a>
+  </div>
+ 
+<script type="text/javascript">
+    //定义一个空数组用来存放遍历出来的节点
+    var showBgList = [];
+    //获取根节点
+	var rootEle = document.getElementById('layer-wrapper');
+	//全局变量：定时器
+	var timer;
+    //先序遍历节点
+    function preOrder(node){
+      if (node){
+      	 showBgList.push(node)
+         preOrder(node.firstElementChild);
+         preOrder(node.lastElementChild)
+      }
+    }
+    //中序遍历节点
+    function inOrder(node){
+      if (node){
+	     inOrder(node.firstElementChild);
+	     showBgList.push(node);
+	     inOrder(node.lastElementChild);
+       }
+    }
+    //后序遍历节点
+    function postOrder(node){
+      if (node){
+	     postOrder(node.firstElementChild);
+	     postOrder(node.lastElementChild);
+	     showBgList.push(node);
+    	}
+    }
+    //渲染背景的函数
+    function render(){
+	    var listLength = showBgList.length;
+	    var i = 0;
+	    //判断是否正在执行上一次动画
+	    if (!timer){
+	      timer = setInterval(setBg, 500);
+	    } else {
+	    	alert('正在进行动画，请动画进行完成后再按');
+	    }
+	    
+	    function setBg(){
+	    	if (i < listLength){
+	    	  if (i > 0){
+	    	  	showBgList[i - 1].style.backgroundColor = '';
+	    	  }
+	          showBgList[i].style.backgroundColor = 'pink';
+	          i ++;
+	    	} else if (i = listLength) {
+	    		showBgList[i - 1].style.backgroundColor = '';
+	    		showBgList = [];//重置节点数组
+	    		clearInterval(timer);
+	    		timer = null;
+	    	}
+        }
+    }
+    //中序遍历按钮的事件
+    function eventInOrder(){
+	  
+	    //中序遍历节点，初始化showBglist
+		inOrder(rootEle);
+	    render();
+    }
+    //先序遍历按钮的事件
+    function eventPreOrder(){
+	    //先序遍历节点，初始化showBglist
+		preOrder(rootEle);
+	    render();
+    }
+    //后序遍历按钮的事件
+    function eventPostOrder(){
+    	//后序遍历节点，初始化showBglist
+    	postOrder(rootEle);
+    	render();
+    }
+
+    //绑定事件：
+    document.getElementById('in-order').onclick = eventInOrder;
+    document.getElementById('pre-order').onclick = eventPreOrder;
+    document.getElementById('post-order').onclick = eventPostOrder;
+
+</script>
+</body>
+</html>
